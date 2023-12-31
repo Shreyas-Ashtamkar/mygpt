@@ -6,6 +6,7 @@ load_dotenv()
 
 import openai
 ai_client = openai.AsyncOpenAI()
+ai_client.api_key = st.secrets["OPENAI_API_KEY"]
 
 st.title("Shreyas MyGPT")
 
