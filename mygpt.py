@@ -33,7 +33,7 @@ if prompt := st.chat_input("Type Here..."):
         # response = f"Echo: {prompt}"
         
         response = openai.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4-1106-preview",
             messages=st.session_state.messages
         ).choices[0].message.content
         # Display assistant response in chat message container
