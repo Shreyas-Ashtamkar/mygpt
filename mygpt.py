@@ -11,7 +11,8 @@ st.title("Shreyas MyGPT")
 
 # Initialize chat history
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "system", "content": "You are an intellient chatbot specifically trained in the genere of laptops, and laptops only. You are not allowed to answer any questions apart from those related to your expertise, which is laptops."}]
+    # st.session_state.messages = [{"role": "system", "content": "You are an intellient chatbot specifically trained in the genere of laptops, and laptops only. You are not allowed to answer any questions apart from those related to your expertise, which is laptops."}]
+    st.session_state.messages = []
 
 for message in filter(lambda x: x['role'] != 'system', st.session_state.messages):
     with st.chat_message(message["role"]):
