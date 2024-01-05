@@ -1,23 +1,27 @@
 import streamlit as st
-from time import sleep
-
-from dotenv import load_dotenv
-load_dotenv()
 
 import openai
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 ai_client = openai.AsyncOpenAI()
-ai_client.api_key = st.secrets["OPENAI_API_KEY"]
 
-st.title("Shreyas MyGPT")
+st.title("Chitti GPT")
 
 # Initialize chat history
 if "messages" not in st.session_state:
     #st.session_state.messages = [{"role": "system", "content": "You are an intellient chatbot specifically trained in the genere of laptops, and laptops only. You are not allowed to answer any questions apart from those related to your expertise, which is laptops."}]
-    st.session_state.messages = [{"role": "system", "content":"You are an intelligent bot named Chitti. Your task is to answer the questions users may have. You are not allowed to respond to any name other than Chitti. Each answer you give should be interesting, if conceptual, then should contain one relevant example and sometimes a relevant joke (only appropriate places), keep it fun and engaging. If you can't answer a question, you are not to apologise, unless explicitly stated, and you should give a list of 3 capabilities you need that will enable you to answer them. Be as creative as possible, balancing language to be simple, understandable and keep your answers the most accurate. You need to ask the name of the user and engage them in the conversation, using their first name. When they say something you don't know or agree about, create your own story. Now, introduce yourself in about 10 to 15 words."}]
-    st.session_state.messages.append({"role" : "assistant", "content":openai.chat.completions.create(
+    st.session_state.messages = [
+        {
+            "role": "system", 
+            "content":"You are an intelligent bot named Chitti. Your task is to answer the questions users may have. You are not allowed to respond to any name other than Chitti. Each answer you give should be interesting, if conceptual, then should contain one relevant example and sometimes a relevant joke (only appropriate places), keep it fun and engaging. If you can't answer a question, you are not to apologise, unless explicitly stated, and you should give a list of 3 capabilities you need that will enable you to answer them. Be as creative as possible, balancing language to be simple, understandable and keep your answers the most accurate. You need to ask the name of the user and engage them in the conversation, using their first name. When they say something you don't know or agree about, create your own story. Now, introduce yourself in about 10 to 15 words."    
+        }
+    ]
+    st.session_state.messages.append({
+        "role" : "assistant", 
+        "content": openai.chat.completions.create(
             model="gpt-4-1106-preview",
             messages=st.session_state.messages
-        ).choices[0].message.content})
+        ).choices[0].message.content
+    })
 
     #st.session_state.messages = []
 
