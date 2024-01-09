@@ -21,8 +21,7 @@ if "messages" not in st.session_state:
     init()
 
 for message in filter(lambda x: x['role'] != 'system', st.session_state.messages):
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+    showChatMessage(message["role"], message["content"])
 
 if prompt := st.chat_input("Type Here..."):
     newMessage("user", prompt)

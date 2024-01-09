@@ -1,6 +1,7 @@
 import streamlit as st
 import openai
 
+from time import sleep as _sleep
 import requests as _requests
 
 def checkConnectivity():
@@ -21,12 +22,45 @@ except Exception as e:
     
 INITIAL_PROMPT = ""
 
+def showChatMessageAnimated(role, content):
+    with st.chat_message(role):
+        msg = st.empty()
+        full_msg = ""
+        
+        for word in content:
+            full_msg += word
+            _sleep(0.01)
+            msg.markdown(full_msg + "▌")
+        
+        for i in range(3):
+            if i%2 == 0:
+                msg.markdown(full_msg + "▌")
+            else:
+                msg.markdown(full_msg)
+            _sleep(0.5)
+            
+        msg.markdown(full_msg)
+        pass
+
+def showChatMessage(role, content, animated=False):
+    if role =="assistant":
+        if animated:
+            showChatMessageAnimated(role, content)
+        else:
+            with st.chat_message(role):
+                st.markdown(content)
+    else:
+        with st.chat_message(role):
+            st.markdown(content)
+
 def newMessage(role, msg):
     global st
     
     if role!="system" and (len(st.session_state.messages)>1):
-        with st.chat_message(role):
-            st.markdown(msg)
+        if role=="assistant":
+            showChatMessage(role, msg, True)
+        else:
+            showChatMessage(role, msg)
     
     st.session_state.messages.append({
         "role" : role,
