@@ -13,7 +13,9 @@ personas = {row["Name"]:row["Prompt"] for row in pd.read_csv("persona.csv").to_d
 with st.sidebar: 
     st.title("Chitti")
     st.header("Customizations :")
-    prompt = st.radio("Choose", options=personas.keys())
+    prompt = st.radio("Choose Persona :", options=personas.keys())
+    st.button("Set", on_click=init, args=[personas[prompt]])
+
     # INITIAL_PROMPT = 
     # msg = st.text_input("Initial Prompt", INITIAL_PROMPT)
 
