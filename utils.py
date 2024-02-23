@@ -80,8 +80,7 @@ def generateResponse(msg = None):
     else:
         try:
             return openai.chat.completions.create(
-                model="gpt-3.5-turbo",
-                # model="gpt-4-1106-preview",
+                model=st.secrets["MODEL"],
                 messages=st.session_state.messages
             ).choices[0].message.content
         except Exception as e:
