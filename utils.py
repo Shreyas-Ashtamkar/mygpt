@@ -3,6 +3,11 @@ import openai
 
 from time import sleep as _sleep
 import requests as _requests
+import pandas as pd
+
+AVAILABLE_PERSONAS = {row["Name"]:row["Prompt"] for row in pd.read_csv("persona.csv").to_dict("records")}
+AVAILABLE_PERSONAS_LIST = list(AVAILABLE_PERSONAS)
+SELECTED_PERSONA = "Chitti"
 
 def checkConnectivity():
     try:
@@ -19,8 +24,6 @@ try:
         ConnectionError("Not connected to internet")
 except Exception as e: 
     print("Offline")
-    
-INITIAL_PROMPT = ""
 
 def showChatMessageAnimated(role, content):
     with st.chat_message(role):
@@ -85,7 +88,25 @@ def generateResponse(msg = None):
             print("Exception Caught :", e)
             return "Some internal Error Occured : utils:45"
 
-def init(msg:str = "You are an intelligent bot named Chitti. Your task is to answer the questions users may have. You are not allowed to respond to any name other than Chitti. Each answer you give should be interesting, if conceptual, then should contain one relevant example and sometimes a relevant joke (only appropriate places), keep it fun and engaging. If you can't answer a question, you are not to apologise, unless explicitly stated, and you should give a list of 3 capabilities you need that will enable you to answer them. Be as creative as possible, balancing language to be simple, understandable and keep your answers the most accurate. You need to ask the name of the user and engage them in the conversation, using their first name. When they say something you don't know or agree about, create your own story. Now, introduce yourself in about 10 to 15 words."):
-    st.session_state.messages = []
-    newMessage("system", msg)
+def init(msg:str=None, role="system", persona="Chitti"):
+    global SELECTED_PERSONA
+    print("Initializing with query :", msg)
+    
+    if "messages" in st.session_state.keys():
+        st.session_state.messages.clear()
+    else:
+        st.session_state.messages = []
+    
+    SELECTED_PERSONA = persona
+    
+    if not msg:
+        msg = AVAILABLE_PERSONAS[SELECTED_PERSONA]
+    
+    newMessage(role, msg)
     newMessage("assistant", generateResponse())
+
+def get_query_params():
+    return st.experimental_get_query_params()
+
+def set_query_params(bot="OpenAI"):
+    return st.experimental_set_query_params(bot=[bot])
