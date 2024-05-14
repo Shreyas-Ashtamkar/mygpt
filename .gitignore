@@ -3,6 +3,8 @@
 
 ### Streamlit ###
 .streamlit
+.idea
+.idea/*
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
