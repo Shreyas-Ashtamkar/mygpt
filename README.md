@@ -25,7 +25,7 @@ OPENAI_API_KEY=your_api_key
 3. Run the application:
 
 ```bash
-streamlit run main.py
+streamlit run streamlit_app.py
 ```
 
 **Note:** Replace `main.py` with the actual filename of your script.
