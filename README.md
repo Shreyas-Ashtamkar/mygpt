@@ -34,10 +34,6 @@ streamlit run streamlit_app.py
 
 Open a web browser and navigate to `http://localhost:8501/` (default Streamlit port). Interact with the text input field and generation button to experience the application.
 
-### Contributing
-
-We welcome contributions! Please refer to the `CONTRIBUTING.md` file for details on how to contribute to the project.
-
 ### License
 
 This project is licensed under the MIT License (see `LICENSE` file for details).
