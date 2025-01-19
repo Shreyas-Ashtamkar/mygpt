@@ -105,7 +105,7 @@ def init(msg:str=None, role="system", persona="Chitti"):
     newMessage("assistant", generateResponse())
 
 def get_query_params():
-    return st.experimental_get_query_params()
+    return st.query_params
 
 def set_query_params(bot="OpenAI"):
-    return st.experimental_set_query_params(bot=[bot])
+    return st.query_params.setdefault(bot=[bot])

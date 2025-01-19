@@ -24,7 +24,7 @@ with st.sidebar:
 
 if "messages" not in st.session_state:
     if search_query := get_query_params().get('query'):
-        init(search_query[0], "user")
+        init(search_query, "user")
     else:
         init(AVAILABLE_PERSONAS[SELECTED_PERSONA])
     
